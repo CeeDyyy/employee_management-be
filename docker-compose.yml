@@ -1,0 +1,28 @@
+version: '3.5'
+services:
+
+  service-api:
+    container_name: service-api
+    restart: always
+    build: ./service-api/
+    ports:
+      - "8004:4000"
+    volumes:
+      - ./service-api:/usr/src/app
+      - ./media:/media
+    networks:
+      - nw_service_api
+    command: >
+      bash -c "
+        find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+        find . -path "*/migrations/*.pyc"  -delete
+        cp backend/config-local.py backend/config.py
+        cp .env.local .env
+        python manage.py collectstatic --noinput
+        python manage.py crontab add
+        service cron start
+        python manage.py runserver 0.0.0.0:4000"
+  
+networks:
+    nw_service_api:
+      name: nw_service_api
