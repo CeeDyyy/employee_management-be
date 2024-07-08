@@ -14,6 +14,14 @@ class UsersSerializer(serializers.ModelSerializer):
             'role'
             ]
 
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        fields = [
+            'user_id', 'display_name', 'status_message', 'picture_url', 
+            'role'
+            ]
+
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users

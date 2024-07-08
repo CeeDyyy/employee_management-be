@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from web.models import *
 from web.serializers.users import (
     UsersSerializer,
+    TokenSerializer,
     UserExistingSerializer,
     UserUpdateSerializer,
 )
@@ -43,9 +44,9 @@ class UserCheck(APIView):
                     picture_url = pictureUrl,
                     status_message = statusMessage
                     )
-            serializerData = UsersSerializer(data)
-            encoded_jwt = jwt.encode({"user_id": serializerData.data.user_id, "display_name": serializerData.data.display_name, "role": serializerData.data.role}, "secret", algorithm="HS256")
-            return Response({"data": {"user": serializerData.data, "token": encoded_jwt}, "status": True}, 200)
+            serializerData = TokenSerializer(data)
+            encoded_jwt = jwt.encode(serializerData.data, "secret", algorithm="HS256")
+            return Response({"data": encoded_jwt, "status": True}, 200)
         return Response(serializer.errors, 400)
     
 class UserDetail(APIView):
