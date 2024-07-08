@@ -43,8 +43,8 @@ class UserCheck(APIView):
                     status_message = statusMessage
                     )
             serializerData = UsersSerializer(data)
-            encoded_jwt = jwt.encode({"data": serializerData.data}, "secret", algorithm="HS256")
-            return Response({"token": encoded_jwt}, 200)
+            encoded_jwt = jwt.encode({"user_id": serializerData.data.user_id, "display_name": serializerData.data.display_name, "role": serializerData.data.role}, "secret", algorithm="HS256")
+            return Response({"user": serializerData.data, "token": encoded_jwt}, 200)
         return Response(serializer.errors, 400)
     
 class UserDetail(APIView):
