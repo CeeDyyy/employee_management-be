@@ -38,4 +38,4 @@ class UserExistingSerializer(serializers.Serializer):
     userId = serializers.CharField(required=True)
     displayName = serializers.CharField(required=True)
     pictureUrl = serializers.CharField(required=True)
-    statusMessage = serializers.CharField(required=True)
+    statusMessage = serializers.CharField(required=False)
