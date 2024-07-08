@@ -46,8 +46,8 @@ class UserCheck(APIView):
                     )
             serializerData = TokenSerializer(data)
             encoded_jwt = jwt.encode(serializerData.data, "secret", algorithm="HS256")
-            return Response({"data": encoded_jwt, "status": True}, 200)
-        return Response(serializer.errors, 400)
+            return Response({"data": encoded_jwt, "detail": "Success", "status": True}, 200)
+        return Response({"detail": serializer.errors, "status": False}, 400)
     
 class UserDetail(APIView):
     authentication_classes = []
