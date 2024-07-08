@@ -57,7 +57,7 @@ class CarBookingDetail(APIView):
     def delete(self, request, pk, format=None):
         carbooking = self.get_object(pk)
         carbooking.delete()
-        return Response({"detail": "Car Booking Deleted!", "status": True}, 204)
+        return Response({"detail": "Car Booking Deleted!", "status": True}, 200)
 
 class CarBookingApproval(APIView):
     authentication_classes = []

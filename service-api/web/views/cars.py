@@ -55,4 +55,4 @@ class CarDetail(APIView):
     def delete(self, request, pk, format=None):
         car = self.get_object(pk)
         car.delete()
-        return Response({"detail": "Car Deleted!", "status": True}, 204)
+        return Response({"detail": "Car Deleted!", "status": True}, 200)

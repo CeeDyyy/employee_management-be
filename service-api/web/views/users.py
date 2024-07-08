@@ -76,4 +76,4 @@ class UserDetail(APIView):
     def delete(self, request, pk, format=None):
         user = self.get_object(pk)
         user.delete()
-        return Response({"detail": "User Deleted!", "status": True}, 204)
+        return Response({"detail": "User Deleted!", "status": True}, 200)

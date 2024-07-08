@@ -57,7 +57,7 @@ class LeaveDetail(APIView):
     def delete(self, request, pk, format=None):
         leave = self.get_object(pk)
         leave.delete()
-        return Response({"detail": "Leaving Deleted!", "status": True}, 204)
+        return Response({"detail": "Leaving Deleted!", "status": True}, 200)
 
 class LeaveApproval(APIView):
     authentication_classes = []
