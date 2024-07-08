@@ -29,7 +29,7 @@ class UserCheck(APIView):
     permission_classes = []
 
     def post(self, request, format=None):
-        serializer = UserExistingSerializer(data=request.data)
+        serializer = UserExistingSerializer(data=request.data)  # ตรงนี้ไม่ได้เช็คว่ามี account ไหม แต่เช็คว่า data ที่ได้มามันตาม format ของ serializer นี้ไหม
         if serializer.is_valid():
             userId = serializer.validated_data['userId']
             displayName = serializer.validated_data['displayName']
