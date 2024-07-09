@@ -34,7 +34,7 @@ class UserCheck(APIView):
             userId = serializer.validated_data['userId']
             displayName = serializer.validated_data['displayName']
             pictureUrl = serializer.validated_data['pictureUrl']
-            statusMessage = serializer.validated_data['statusMessage']
+            statusMessage = serializer.validated_data['statusMessage'] if 'statusMessage' in serializer.validated_data else None    # ถ้า account LINE นั้นไม่มี statusMessage ก็ให้เป็น None
             try:
                 data = Users.objects.get(user_id=userId)
             except Users.DoesNotExist:
