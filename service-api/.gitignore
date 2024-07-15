@@ -1,4 +1,6 @@
+/service-api/backend/__pycache__
 /service-api/web/__pycache__
+/service-api/web/migrations/__pycache__
 /service-api/web/models/__pycache__
 /service-api/web/serializers/__pycache__
 /service-api/web/views/__pycache__
