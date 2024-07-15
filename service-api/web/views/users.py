@@ -38,11 +38,13 @@ class UserCheck(APIView):
             try:
                 data = Users.objects.get(user_id=userId)
             except Users.DoesNotExist:
+                allUsers = Users.objects.all()
                 data = Users.objects.create(
                     user_id = userId,
                     display_name = displayName,
                     picture_url = pictureUrl,
-                    status_message = statusMessage
+                    status_message = statusMessage,
+                    role = 'supervisor' if len(allUsers) == 0 else 'member'
                     )
             serializerData = TokenSerializer(data)
             encoded_jwt = jwt.encode(serializerData.data, "secret", algorithm="HS256")

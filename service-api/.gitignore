@@ -1,0 +1,4 @@
+/service-api/web/__pycache__
+/service-api/web/models/__pycache__
+/service-api/web/serializers/__pycache__
+/service-api/web/views/__pycache__

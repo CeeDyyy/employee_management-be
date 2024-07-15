@@ -4,8 +4,17 @@ from web.models import *
 class CarsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cars
-        fields = ['id', 'title', 'type', 'capacity', 'license']
+        fields = '__all__'  # เอาทุก field
     # ข้อมูลที่สามารถ return กลับไปได้
+
+class CarsBookingSerializer(serializers.ModelSerializer):
+    thiscar = serializers.SerializerMethodField()
+    class Meta:
+        model = Cars
+        fields = ['thiscar']
+
+    def get_fullname(self, obj):    # get_[ชื่อตัวแปรที่ตั้งไว้ข้างบน] (เป็นประมาณว่า จะให้ fullname ข้างบนมัน return อะไร)
+        return obj.title + obj.license
 
 class CarUpdateSerializer(serializers.ModelSerializer):
     title = serializers.CharField(required=False)

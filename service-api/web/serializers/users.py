@@ -4,15 +4,18 @@ from web.models import *
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = [
-            'id', 
-            'user_id', 'display_name', 'status_message', 'picture_url', 
-            'name_en_first', 'name_en_middle', 'name_en_last', 'name_en_nick',
-            'name_local_first', 'name_local_middle', 'name_local_last', 'name_local_nick',
-            'description',
-            'position', 'section', 'division', 'department', 'branch', 'company', 'rank',
-            'role'
-            ]
+        fields = '__all__'  # เอาทุก field
+    # ข้อมูลที่สามารถ return กลับไปได้
+
+class UsersBookingSerializer(serializers.ModelSerializer):
+    fullname = serializers.SerializerMethodField()
+    class Meta:
+        model = Users
+        fields = ['fullname']
+
+    def get_fullname(self, obj):    # get_[ชื่อตัวแปรที่ตั้งไว้ข้างบน] (เป็นประมาณว่า จะให้ fullname ข้างบนมัน return อะไร)
+        return obj.name_local_first + obj.name_local_middle + obj.name_local_last + obj.name_local_nick
+        # f"${obj.name_local_first} ${obj.name_local_middle} ${obj.name_local_last} ${obj.name_local_nick} "
 
 class TokenSerializer(serializers.ModelSerializer):
     class Meta:

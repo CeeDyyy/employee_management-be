@@ -3,7 +3,7 @@ from web.models.option import *
 import datetime
 
 class Leaves(models.Model):
-    user_id = models.CharField(max_length=64, null=True, blank=True)
+    user = models.ForeignKey('Users', related_name='user_leave', on_delete=models.CASCADE, default=None) # เป็น foreign key ไปโมเดล Users โดยให้ Users มาที่นี่โดยอ้างอิงว่า user_leave ถ้า leave ใดโดนลบก็จะลบ leave ดังกล่าวด้วย ถ้าไม่มีค่าอะไร default จะเป็น None
     detail = models.CharField(max_length=512, null=True, blank=True)
     start_date = models.DateTimeField(null=True, blank=True)
     end_date = models.DateTimeField(null=True, blank=True)
@@ -19,3 +19,8 @@ class Leaves(models.Model):
             self.record_timestamp = now
         self.update_timestamp = now
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return '%s (%s - %s) : %s, %s' % (
+            self.user, self.start_date, self.end_date, self.status, self.approver
+            )

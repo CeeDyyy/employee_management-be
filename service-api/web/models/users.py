@@ -25,7 +25,6 @@ class Users(models.Model):
     role = models.CharField(max_length=64, null=True, blank=True)
 
     def __str__(self):
-        return '[%s] %s - %s %s (%s)' % (
-            self.user_id, self.display_name,
+        return '%s %s (%s)' % (
             self.name_local_first, self.name_local_last, self.name_local_nick
             )

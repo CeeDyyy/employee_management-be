@@ -14,7 +14,7 @@ class LeaveList(APIView):
     permission_classes = [PermissionIsLogin]
 
     def get(self, request, format=None):
-        queryset = Leaves.objects.all().order_by('id').values() #เรียงตามลำดับเก่าไปใหม่(ถ้าอยากให้เป็นใหม่ไปเก่าให้ใส่('-id')) ถ้าไม่ใส่มันจะเรียงจากอัปเดตล่าสุด
+        queryset = Leaves.objects.all().order_by('id') #เรียงตามลำดับเก่าไปใหม่(ถ้าอยากให้เป็นใหม่ไปเก่าให้ใส่('-id')) ถ้าไม่ใส่มันจะเรียงจากอัปเดตล่าสุด
         data = LeavesSerializer(queryset, many=True).data
         response = {
             "data": data,
@@ -26,7 +26,20 @@ class LeaveList(APIView):
     def post(self, request, format=None):
         serializer = LeavesCreateSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            user_id = serializer.validated_data['user_id']
+            detail = serializer.validated_data['detail']
+            start_date = serializer.validated_data['start_date']
+            end_date = serializer.validated_data['end_date']
+
+            user = Users.objects.get(user_id=user_id)
+
+            Leaves.objects.create(
+                user = user,
+                detail = detail,
+                start_date = start_date,
+                end_date = end_date
+                
+                )
             return Response({"data": serializer.data, "detail": "Leaving Added!", "status": True}, 201)
         return Response({"data": serializer.errors, "detail": "Failed to Add Leaving!", "status": False}, 400)
 

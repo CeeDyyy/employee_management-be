@@ -1,20 +1,21 @@
 from rest_framework import serializers
 from web.models import *
+from web.serializers.users import *
+
 
 class LeavesSerializer(serializers.ModelSerializer):
+    user = UsersBookingSerializer()
+
     class Meta:
         model = Leaves
-        fields = ['id', 'user_id', 'detail', 'start_date', 'end_date', 'record_timestamp', 'status', 'approver', 'reason', 'update_timestamp']
+        fields = '__all__'  # เอาทุก field
 
-class LeavesCreateSerializer(serializers.ModelSerializer):
+class LeavesCreateSerializer(serializers.Serializer):
     user_id = serializers.CharField(required=True)
     detail = serializers.CharField(required=True)
     start_date = serializers.DateTimeField(required=True)
     end_date = serializers.DateTimeField(required=True)
 
-    class Meta:
-        model = Leaves
-        fields = ['user_id', 'detail', 'start_date', 'end_date']
 
 class LeavesUpdateSerializer(serializers.ModelSerializer):
     class Meta:

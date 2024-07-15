@@ -1,21 +1,21 @@
 from rest_framework import serializers
 from web.models import *
+from web.serializers.users import *
+from web.serializers.cars import *
 
 class CarBookingsSerializer(serializers.ModelSerializer):
+    user = UsersBookingSerializer()
+    car = CarsBookingSerializer()
     class Meta:
         model = CarBookings
-        fields = ['id', 'user_id', 'detail', 'start_date', 'end_date', 'car_id', 'record_timestamp', 'status', 'approver', 'reason', 'update_timestamp']
+        fields = '__all__'
 
-class CarBookingsCreateSerializer(serializers.ModelSerializer):
+class CarBookingsCreateSerializer(serializers.Serializer):
     user_id = serializers.CharField(required=True)
     detail = serializers.CharField(required=True)
     start_date = serializers.DateTimeField(required=True)
     end_date = serializers.DateTimeField(required=True)
     car_id = serializers.CharField(required=True)
-
-    class Meta:
-        model = CarBookings
-        fields = ['user_id', 'detail', 'start_date', 'end_date', 'car_id']
 
 class CarBookingsUpdateSerializer(serializers.ModelSerializer):
     class Meta:
