@@ -14,7 +14,8 @@ class CarsBookingSerializer(serializers.ModelSerializer):
         fields = ['thiscar']
 
     def get_fullname(self, obj):    # get_[ชื่อตัวแปรที่ตั้งไว้ข้างบน] (เป็นประมาณว่า จะให้ fullname ข้างบนมัน return อะไร)
-        return obj.title + obj.license
+        # return obj.title + obj.license  # ใช้วิธีนี้ไม่ได้ พอข้อมูลเป็น None แล้วมันพัง
+        return f"{obj.title} {obj.license}"
 
 class CarUpdateSerializer(serializers.ModelSerializer):
     title = serializers.CharField(required=False)

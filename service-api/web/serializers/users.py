@@ -14,8 +14,8 @@ class UsersBookingSerializer(serializers.ModelSerializer):
         fields = ['fullname']
 
     def get_fullname(self, obj):    # get_[ชื่อตัวแปรที่ตั้งไว้ข้างบน] (เป็นประมาณว่า จะให้ fullname ข้างบนมัน return อะไร)
-        return obj.name_local_first + obj.name_local_middle + obj.name_local_last + obj.name_local_nick
-        # f"${obj.name_local_first} ${obj.name_local_middle} ${obj.name_local_last} ${obj.name_local_nick} "
+        # return obj.name_local_first + obj.name_local_middle + obj.name_local_last + obj.name_local_nick   # ใช้วิธีนี้ไม่ได้ พอข้อมูลเป็น None แล้วมันพัง
+        return f"{obj.name_local_first} {obj.name_local_middle} {obj.name_local_last} {obj.name_local_nick}"
 
 class TokenSerializer(serializers.ModelSerializer):
     class Meta:
